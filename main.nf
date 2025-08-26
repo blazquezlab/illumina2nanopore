@@ -13,7 +13,10 @@ include {
     merge_fastqs;
     merge_forward_reverse} from './modules/merge_fastqs'
 
-include { multiqc } from './modules/multiqc'
+include { 
+    multiqc as raw_multiqc;
+    multiqc as oriented_multiqc;
+    multiqc as multiqc} from './modules/multiqc'
 
 include {
     stats as orientation_stats;
@@ -60,7 +63,8 @@ def getPrefix(file) {
 
 def getSAF(bam) {
     prefix = bam.baseName.split("_")[0]
-    saf = params.saf_files[prefix]
+    // saf = params.saf_file[prefix]
+    saf = params.saf_file
     return tuple(saf, bam)
 }
 
@@ -85,7 +89,6 @@ process input_logger {
         ls $fastq_dir > input_files.txt
         """
 }
-
 
 // ------------ INPUT FILES ------------
 
@@ -170,7 +173,7 @@ workflow {
     
     // raw read QC
     raw_fastqc(fastq_file)
-    multiqc_logs = raw_fastqc.out
+    multiqc_raw_logs = raw_fastqc.out
     
     /* ----- ORIENTATION DEMULTIPLEXING ----- */
     if (params.enable_orientation_demultiplexing) {
@@ -188,14 +191,17 @@ workflow {
             demultiplex_orientation.out.trimmed_fastqs,
             "orientation_dmplexed"
         )
+        
+        
+        multiqc_others_logs = demultiplex_orientation.out.log
 
-        multiqc_logs = multiqc_logs
-            .concat(oriented_fastqc.out)
-            .collect()  // makes multiqc wait for all to be emitted
+        //multiqc_logs = multiqc_logs
+        //    .concat(oriented_fastqc.out)
+        //    .collect()  // makes multiqc wait for all to be emitted
 
         // output channels
         oriented_fastqs     = demultiplex_orientation.out.trimmed_fastqs
-        multiqc_logs        = multiqc_logs.concat(demultiplex_orientation.out.log)
+        //multiqc_logs        = multiqc_logs.concat(demultiplex_orientation.out.log)
 
     }
     else {
@@ -236,7 +242,7 @@ workflow {
         | filter { it.simpleName =~ /^((?!.*(unknown).*).)*$/ } \
         | set {lib_dmplexed_fastqs}
 
-        multiqc_logs = multiqc_logs.concat(demultiplex_library.out.log.collect())
+        multiqc_others_logs = multiqc_others_logs.concat(demultiplex_library.out.log.collect())
 
     }
     else {
@@ -256,7 +262,7 @@ workflow {
         "adapter_trimmed"
     )
 
-    multiqc_logs = multiqc_logs.concat(adapter_trim.out.log.collect())
+    multiqc_others_logs = multiqc_others_logs.concat(adapter_trim.out.log.collect())
     
     /* BARCODE DEMULTIPLEXING */
     if (params.enable_barcode_demultiplexing) {
@@ -273,7 +279,7 @@ workflow {
 
         // output channels
         bc_demultiplex_fastqs   = demultiplex_bc.out.fastqs
-        multiqc_logs            = multiqc_logs.concat(demultiplex_bc.out.log)
+        multiqc_others_logs            = multiqc_others_logs.concat(demultiplex_bc.out.log)
 
     }
     else {
@@ -310,7 +316,7 @@ workflow {
     else {
         align_STAR(extracted_fastqs, index_dir)
 
-        multiqc_logs   = multiqc_logs.concat(align_STAR.out.logs.collect())
+        multiqc_others_logs   = multiqc_others_logs.concat(align_STAR.out.logs.collect())
 
         // output channels
         alignment_bams = align_STAR.out.bams
@@ -327,7 +333,7 @@ workflow {
 
         // output channels
         dedup_bams      = dedup_UMI.out.dedup_bams
-        multiqc_logs    = multiqc_logs.concat(dedup_UMI.out.logs.collect())
+        multiqc_others_logs    = multiqc_others_logs.concat(dedup_UMI.out.logs.collect())
     } 
     else if (params.enable_UMI_clustering) {
         // cluster reads by UMI
@@ -381,7 +387,7 @@ workflow {
         )
 
         all_counts = dup_featureCounts_targeted.out.counts.collect()
-        multiqc_logs = multiqc_logs.concat(dup_featureCounts_targeted.out.logs.collect()).collect()
+        multiqc_others_logs = multiqc_others_logs.concat(dup_featureCounts_targeted.out.logs.collect()).collect()
     }
     else {
         alignment_bams \
@@ -394,7 +400,7 @@ workflow {
             "dup_global"
         )
         all_counts = dup_featureCounts_global.out.counts.collect()
-        multiqc_logs = multiqc_logs.concat(dup_featureCounts_global.out.logs.collect()).collect()
+        multiqc_others_logs = multiqc_others_logs.concat(dup_featureCounts_global.out.logs.collect()).collect()
     }
 
     // repeat with deduplicated bams
@@ -413,7 +419,7 @@ workflow {
             "dedup_targeted"
         )
         all_counts = all_counts.concat(dedup_featureCounts_targeted.out.counts.collect())
-        multiqc_logs = multiqc_logs.concat(dedup_featureCounts_targeted.out.logs.collect()).collect()
+        multiqc_others_logs = multiqc_others_logs.concat(dedup_featureCounts_targeted.out.logs.collect()).collect()
     } 
     else if (!params.enable_isoform_counting && (params.enable_UMI_treatment || params.enable_UMI_clustering)) {
         dedup_bams \
@@ -426,7 +432,7 @@ workflow {
             "dedup_global"
         )
         // counts not collected for downstream processing bcs no isoform counting format
-        multiqc_logs = multiqc_logs.concat(dedup_featureCounts_global.out.logs.collect()).collect()
+        multiqc_others_logs = multiqc_others_logs.concat(dedup_featureCounts_global.out.logs.collect()).collect()
     }
 
     /* RESULT CLEANING AND PLOTTING */
@@ -439,8 +445,6 @@ workflow {
     | plot_results
 
     /* MULTIQC REPORT */
-    multiqc(
-        multiqc_logs,
-        multiqc_config
-    )
+    multiqc(multiqc_others_logs, multiqc_config)
+
 }

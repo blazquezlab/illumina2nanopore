@@ -10,6 +10,8 @@ process align_STAR {
         path "*.bam", emit: bams
         path "*Log.final.out", emit: logs
 
+    publishDir "${params.output_dir}/raw_bams", mode: 'copy', enabled: true
+
     script:
     // remove UMI_ prefix from fastq file name
     outName = fastq.simpleName - "UMI_"

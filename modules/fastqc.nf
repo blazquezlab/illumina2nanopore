@@ -7,10 +7,11 @@ process fastqc {
         path "${task.process}/"
     
     """
-    mkdir ${task.process}
-    fastqc \\
-        -t 4 \\
-        -o ${task.process}/ \\
-        ${fastq_files}
+    mkdir -p ${task.process}
+    for fq in ${fastq_files}; do
+        base=\$(basename \$fq)
+        base_noext=\${base%%.*}
+        fastqc -t 4 -o ${task.process} --outprefix \${base_noext}_${task.process} \$fq
+    done
     """
 }

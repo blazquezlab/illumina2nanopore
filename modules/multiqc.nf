@@ -9,6 +9,6 @@ process multiqc {
         path "multiqc_report.html"
 
     """
-    multiqc --config $multiqc_custom_config .
+    multiqc ${logs} --config $multiqc_custom_config .
     """
 }
