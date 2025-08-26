@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/blazquezlab/illumina2nanopore/master/nextflow_schema.json",
     "title": "illumina2nanopore/nanopore_pipeline_parameters",
     "description": "A pipeline to demultiplex, map, deduplicate and count target RNA sequences",
@@ -13,12 +13,14 @@
             "properties": {
                 "run_name": {
                     "type": "string",
-                    "default": "run_test"
+                    "default": "run_test",
+                    "description": ""
                 },
                 "output_dir": {
                     "type": "string",
                     "default": "output",
-                    "format": "directory-path"
+                    "format": "directory-path",
+                    "description": ""
                 }
             }
         },
@@ -31,21 +33,30 @@
                 "fastq_dir": {
                     "type": "string",
                     "default": "inputs/fastq",
-                    "format": "directory-path"
+                    "format": "directory-path",
+                    "description": ""
                 },
                 "enable_basecalling": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "",
+                    "default": false
                 },
                 "enable_gpu": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "",
+                    "default": false
                 },
                 "fast5_dir": {
                     "type": "string",
-                    "default": "inputs"
+                    "default": "inputs",
+                    "description": "",
+                    "format": "directory-path"
                 },
                 "config_file": {
                     "type": "string",
-                    "default": "dna_r9.4.1_450bps_sup.cfg"
+                    "default": "dna_r9.4.1_450bps_sup.cfg",
+                    "description": "",
+                    "format": "file-path"
                 }
             }
         },
@@ -57,77 +68,95 @@
             "properties": {
                 "enable_orientation_demultiplexing": {
                     "type": "boolean",
-                    "default": true
+                    "default": true,
+                    "description": ""
                 },
                 "fw_fp_P5_1": {
                     "type": "string",
-                    "default": "AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTA"
+                    "default": "AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTA",
+                    "description": ""
                 },
                 "rv_tp_P5_1": {
                     "type": "string",
-                    "default": "TAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT"
+                    "default": "TAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT",
+                    "description": ""
                 },
                 "fw_tp_P3_1": {
                     "type": "string",
-                    "default": "ATCTCGTATGCCGTCTTCTGCTTG"
+                    "default": "ATCTCGTATGCCGTCTTCTGCTTG",
+                    "description": ""
                 },
                 "rv_fp_P3_1": {
                     "type": "string",
-                    "default": "CAAGCAGAAGACGGCATACGAGAT"
+                    "default": "CAAGCAGAAGACGGCATACGAGAT",
+                    "description": ""
                 },
                 "enable_library_demultiplexing": {
                     "type": "boolean",
-                    "default": true
+                    "default": true,
+                    "description": ""
                 },
                 "lib_csv": {
                     "type": "string",
                     "default": "inputs/csvs/libraries.csv",
-                    "format": "file-path"
+                    "format": "file-path",
+                    "description": ""
                 },
                 "fw_P5_2": {
                     "type": "string",
-                    "default": "CACGACGCTCTTCCGATCT"
+                    "default": "CACGACGCTCTTCCGATCT",
+                    "description": ""
                 },
                 "fw_P3_2": {
                     "type": "string",
-                    "default": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC"
+                    "default": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
+                    "description": ""
                 },
                 "min_length": {
                     "type": "integer",
-                    "default": 0
+                    "default": 0,
+                    "description": ""
                 },
                 "max_length": {
                     "type": "integer",
-                    "default": 999999
+                    "default": 999999,
+                    "description": ""
                 },
                 "enable_barcode_demultiplexing": {
                     "type": "boolean",
-                    "default": true
+                    "default": true,
+                    "description": ""
                 },
                 "bc_csv": {
                     "type": "string",
                     "default": "inputs/csvs/barcodes.csv",
-                    "format": "file-path"
+                    "format": "file-path",
+                    "description": ""
                 },
                 "enable_UMI_treatment": {
                     "type": "boolean",
-                    "default": true
+                    "default": true,
+                    "description": ""
                 },
                 "enable_UMI_clustering": {
                     "type": "boolean",
-                    "default": false
+                    "default": false,
+                    "description": ""
                 },
                 "UMI_length": {
                     "type": "integer",
-                    "default": 6
+                    "default": 6,
+                    "description": "Length of the UMI (Unique Molecular Identifier) to be used."
                 },
                 "UMI_threshold": {
                     "type": "integer",
-                    "default": 1
+                    "default": 1,
+                    "description": "Threshold for UMI clustering."
                 },
                 "window_size": {
                     "type": "integer",
-                    "default": 5
+                    "default": 5,
+                    "description": "Window size for UMI clustering."
                 }
             }
         },
@@ -140,38 +169,46 @@
                 "index_dir": {
                     "type": "string",
                     "default": "inputs/index",
-                    "format": "directory-path"
+                    "format": "directory-path",
+                    "description": ""
                 },
                 "enable_minimap": {
                     "type": "boolean",
-                    "default": true
+                    "default": true,
+                    "description": ""
                 },
                 "ref_fasta": {
                     "type": "string",
                     "default": "inputs/fasta/reference.fa",
-                    "format": "file-path"
+                    "format": "file-path",
+                    "description": ""
                 },
                 "enable_isoform_counting": {
                     "type": "boolean",
-                    "default": false
+                    "default": false,
+                    "description": ""
                 },
                 "gtf_file": {
                     "type": "string",
                     "default": "inputs/index/annotations.gtf",
-                    "format": "file-path"
+                    "format": "file-path",
+                    "description": ""
                 },
                 "saf_file": {
                     "type": "string",
                     "default": "inputs/csvs/annotations.saf",
-                    "format": "file-path"
+                    "format": "file-path",
+                    "description": ""
                 },
                 "multimapping_allowed": {
                     "type": "boolean",
-                    "default": false
+                    "default": false,
+                    "description": ""
                 },
                 "fraction_allowed": {
                     "type": "boolean",
-                    "default": false
+                    "default": false,
+                    "description": ""
                 }
             }
         }
