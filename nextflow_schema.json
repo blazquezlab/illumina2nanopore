@@ -7,7 +7,7 @@
     "properties": {
         "multiqc_config": {
             "type": "string",
-            "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/assets/multiqc_config.yaml",
+            "default": "assets/multiqc_config.yaml",
             "hidden": true
         }
     },
