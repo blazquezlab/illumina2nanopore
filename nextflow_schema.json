@@ -1,13 +1,13 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/a-hr/nanopore/nextflow_schema.json",
-    "title": "a-hr/nanopore pipeline parameters",
+    "$id": "https://raw.githubusercontent.com/blazquezlab/illumina2nanopore/refs/heads/main/nextflow_schema.json",
+    "title": "illumina2nanopore/nanopore pipeline parameters",
     "description": "A pipeline to demultiplex, map, deduplicate and count target RNA sequences",
     "type": "object",
     "properties": {
         "multiqc_config": {
             "type": "string",
-            "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/assets/multiqc_config.yaml",
+            "default": "assets/multiqc_config.yaml",
             "hidden": true
         }
     },
@@ -24,7 +24,7 @@
                 },
                 "output_dir": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/output"
+                    "default": "output"
                 }
             }
         },
@@ -36,7 +36,7 @@
             "properties": {
                 "fastq_dir": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/inputs/fastq"
+                    "default": "inputs/fastq"
                 },
                 "enable_basecalling": {
                     "type": "boolean"
@@ -46,7 +46,7 @@
                 },
                 "fast5_dir": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/inputs"
+                    "default": "inputs"
                 },
                 "config_file": {
                     "type": "string",
@@ -86,7 +86,7 @@
                 },
                 "lib_csv": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/inputs/csvs/libraries.csv"
+                    "default": "inputs/csvs/libraries.csv"
                 },
                 "fw_P5_2": {
                     "type": "string",
@@ -110,7 +110,7 @@
                 },
                 "bc_csv": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/inputs/csvs/barcodes.csv"
+                    "default": "inputs/csvs/barcodes.csv"
                 },
                 "enable_UMI_treatment": {
                     "type": "boolean",
@@ -144,25 +144,25 @@
             "properties": {
                 "index_dir": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/index"
+                    "default": "inputs/index"
                 },
                 "enable_minimap": {
                     "type": "boolean"
                 },
                 "ref_fasta": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/inputs/fasta/reference.fa"
+                    "default": "inputs/fasta/reference.fa"
                 },
                 "enable_isoform_counting": {
                     "type": "boolean"
                 },
                 "gtf_file": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/index/annotations.gtf"
+                    "default": "inputs/index/annotations.gtf"
                 },
                 "saf_file": {
                     "type": "string",
-                    "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/inputs/csvs/annotations.saf"
+                    "default": "inputs/csvs/annotations.saf"
                 },
                 "multimapping_allowed": {
                     "type": "boolean"
