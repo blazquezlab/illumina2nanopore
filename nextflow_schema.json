@@ -114,7 +114,8 @@
                     "default": true
                 },
                 "enable_UMI_clustering": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "UMI_length": {
                     "type": "integer",
