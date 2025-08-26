@@ -4,6 +4,13 @@
     "title": "illumina2nanopore/nanopore_pipeline_parameters",
     "description": "A pipeline to demultiplex, map, deduplicate and count target RNA sequences",
     "type": "object",
+    "properties": {
+        "multiqc_config": {
+            "type": "string",
+            "default": "/media/neuro-rna/E2285B0C285ADF5B/EPI2ME-pipelines/workflows/blazquezlab/illumina2nanopore/assets/multiqc_config.yaml",
+            "hidden": true
+        }
+    },
     "$defs": {
         "run_options": {
             "title": "run_options",
