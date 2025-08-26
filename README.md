@@ -39,46 +39,28 @@ A pipeline to demultiplex, map, deduplicate and count target RNA sequences from 
 
 The pipeline consists of the following main steps:
 
-   **1. Basecalling (optional)**
-   
-      Perform Nanopore basecalling if raw signals are provided (fast5 files).
+   **1. Basecalling (optional)** -> Perform Nanopore basecalling if raw signals are provided (fast5 files).
 
    **2. Quality control**
 
       FastQC + MultiQC reports for raw read quality.
 
-   **3. Orientation demultiplexing**
-      - Reads are split into forward and reverse according to the Nanopore adapter sequence.
-      - Merged into forward_R1.fastq.gz and reverse_R2.fastq.gz.
+   **3. Orientation demultiplexing** -> Reads are split into forward and reverse according to the Nanopore adapter sequence. Merged into forward_R1.fastq.gz and reverse_R2.fastq.gz = final_forward.fastq.gz
 
-   **4. Library demultiplexing**
-      - Reads are split by library, according to cDNA primers targeting the gene/region of interest.
-      - Requires libraries.csv.
+   **4. Library demultiplexing**-> Requires libraries.csv. Reads are split by library, according to cDNA primers targeting the gene/region of interest.
 
-5. Internal adapter trimming
+   **5. Internal adapter trimming**
 
-6. Barcode demultiplexing
-   - Reads are split by sample using barcodes.csv.
-   - Produces one FASTQ per cDNA primer and per sample.
+   **6. Barcode demultiplexing** -> Reads are split by sample using barcodes.csv. Produces one FASTQ per cDNA primer and per sample.
 
-7. UMI extraction
-   - Unique Molecular Identifiers (UMIs) are extracted and removed to avoid interference in alignment.
+   **7. UMI extraction** -> Unique Molecular Identifiers (UMIs) are extracted and removed to avoid interference in alignment.
 
-8. Alignment.
-   Reads are mapped to the reference genome/transcriptome.
+   **8. Alignment** -> Reads are mapped to the reference genome/transcriptome.
 
-9. BAM files are indexed.
+   **9. BAM files are indexed**
 
-10. UMI processing (optional)
-   - params.enable_UMI_treatment: Deduplication of UMIs → collapses reads with identical UMI and mapping position.
-   - params.enable_UMI_clustering: UMI clustering → groups reads by UMI similarity and mapping position (tolerates sequencing errors).
+   **10. UMI processing (optional)** -> params.enable_UMI_treatment: Deduplication of UMIs → collapses reads with identical UMI and mapping position. params.enable_UMI_clustering: UMI clustering → groups reads by UMI similarity and mapping position (tolerates sequencing errors). Other parameters: params.UMI_threshold and params.window_size.
 
-   Parameters:
-   - params.UMI_threshold
-   - params.window_size
-
-Produces a FASTQ file to be re-aligned.
-
-11. Expression quantification
+   **11. Expression quantification**
    - params.enable_isoform_counting = true → run featureCounts on SAF annotation:
 
