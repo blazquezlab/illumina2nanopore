@@ -1,16 +1,9 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blazquezlab/illumina2nanopore/refs/heads/main/nextflow_schema.json",
-    "title": "illumina2nanopore/nanopore pipeline parameters",
+    "title": "illumina2nanopore/nanopore_pipeline_parameters",
     "description": "A pipeline to demultiplex, map, deduplicate and count target RNA sequences",
     "type": "object",
-    "properties": {
-        "multiqc_config": {
-            "type": "string",
-            "default": "assets/multiqc_config.yaml",
-            "hidden": true
-        }
-    },
     "$defs": {
         "run_options": {
             "title": "run_options",
