@@ -59,7 +59,10 @@ The pipeline consists of the following main steps:
 
    **9. BAM files are indexed**
 
-   **10. UMI processing (optional)** -> params.enable_UMI_treatment: Deduplication of UMIs → collapses reads with identical UMI and mapping position. params.enable_UMI_clustering: UMI clustering → groups reads by UMI similarity and mapping position (tolerates sequencing errors). Other parameters: params.UMI_threshold and params.window_size.
+   **10. UMI processing (optional)** 
+   - params.enable_UMI_treatment: Deduplication of UMIs → collapses reads with identical UMI and mapping position.
+   - params.enable_UMI_clustering: UMI clustering → groups reads by UMI similarity and mapping position (tolerates sequencing errors).
+   - Other parameters: params.UMI_threshold and params.window_size.
 
    **11. Expression quantification**
    - params.enable_isoform_counting = true → run featureCounts on SAF annotation:
