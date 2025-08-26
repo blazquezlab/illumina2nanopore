@@ -11,7 +11,7 @@
             "hidden": true
         }
     },
-    "$defs": {
+    "definitions": {
         "run_options": {
             "title": "run_options",
             "type": "object",
@@ -175,16 +175,16 @@
     },
     "allOf": [
         {
-            "$ref": "#/$defs/run_options"
+            "$ref": "#/definitions/run_options"
         },
         {
-            "$ref": "#/$defs/basecalling_options"
+            "$ref": "#/definitions/basecalling_options"
         },
         {
-            "$ref": "#/$defs/demultiplexing"
+            "$ref": "#/definitions/demultiplexing"
         },
         {
-            "$ref": "#/$defs/alignment_options"
-        }
-    ]
+            "$ref": "#/definitions/alignment_options"
+        },   
+    ],
 }
