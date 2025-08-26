@@ -40,19 +40,20 @@ A pipeline to demultiplex, map, deduplicate and count target RNA sequences from 
 The pipeline consists of the following main steps:
 
    **1. Basecalling (optional)**
+   
       Perform Nanopore basecalling if raw signals are provided (fast5 files).
 
-2. Quality control
+   **2. Quality control**
 
-FastQC + MultiQC reports for raw read quality.
+      FastQC + MultiQC reports for raw read quality.
 
-3. Orientation demultiplexing
-   - Reads are split into forward and reverse according to the Nanopore adapter sequence.
-   - Merged into forward_R1.fastq.gz and reverse_R2.fastq.gz.
+   **3. Orientation demultiplexing**
+      - Reads are split into forward and reverse according to the Nanopore adapter sequence.
+      - Merged into forward_R1.fastq.gz and reverse_R2.fastq.gz.
 
-4. Library demultiplexing
-   - Reads are split by library, according to cDNA primers targeting the gene/region of interest.
-   - Requires libraries.csv.
+   **4. Library demultiplexing**
+      - Reads are split by library, according to cDNA primers targeting the gene/region of interest.
+      - Requires libraries.csv.
 
 5. Internal adapter trimming
 
