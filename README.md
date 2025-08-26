@@ -39,8 +39,8 @@ A pipeline to demultiplex, map, deduplicate and count target RNA sequences from 
 
 The pipeline consists of the following main steps:
 
-1. Basecalling (optional)
-Perform Nanopore basecalling if raw signals are provided (fast5 files).
+   **1. Basecalling (optional)**
+      Perform Nanopore basecalling if raw signals are provided (fast5 files).
 
 2. Quality control
 
