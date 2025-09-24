@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/blazquezlab/illumina2nanopore/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/meryhidalgo/illumina2nanopore/master/nextflow_schema.json",
     "title": "illumina2nanopore/nanopore_pipeline_parameters",
     "description": "A pipeline to demultiplex, map, deduplicate and count target RNA sequences",
     "type": "object",
